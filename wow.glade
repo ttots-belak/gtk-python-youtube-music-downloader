@@ -4,6 +4,7 @@
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkWindow" id="main_window">
     <property name="can-focus">False</property>
+    <signal name="destroy" handler="main_window_destroy_cb" swapped="no"/>
     <child>
       <object class="GtkFrame" id="main_frame">
         <property name="name">main</property>
@@ -42,6 +43,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="placeholder-text" translatable="yes">link</property>
+                    <signal name="activate" handler="link_activate_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -77,7 +79,9 @@
                   <object class="GtkFileChooserButton" id="dir_choice">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes"/>
+                    <signal name="file-set" handler="dir_choice_file_set_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -105,6 +109,7 @@
                     <property name="image-position">top</property>
                     <property name="active">True</property>
                     <property name="draw-indicator">True</property>
+                    <signal name="toggled" handler="album_choice_toggled_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -171,6 +176,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="placeholder-text" translatable="yes">(Optional)</property>
+                    <signal name="activate" handler="artist_choice_activate_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -197,6 +203,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="placeholder-text" translatable="yes">(Optional)</property>
+                    <signal name="activate" handler="album_choice_activate_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -236,6 +243,7 @@
                       <item id="0" translatable="yes">.mp3</item>
                       <item id="1" translatable="yes">.wav</item>
                     </items>
+                    <signal name="changed" handler="filetype_choice_changed_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -262,6 +270,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="clicked" handler="download_clicked_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -275,6 +284,7 @@
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">True</property>
+                    <signal name="clicked" handler="cancel_clicked_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
