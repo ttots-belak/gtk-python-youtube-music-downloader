@@ -1,8 +1,11 @@
 import gi
+
+from dl_handler import check_and_download
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 args = {
-        "ft": ".mp3"
+        "ft": ".mp3",
+        "is_album": True
         } #Should have "link", "folder", "ft" (filetype) and "is_album". can also have "artist" and "album"
 builder = Gtk.Builder()
 builder.add_from_file("wow.glade")
@@ -36,6 +39,7 @@ class Handlers:
     def download_clicked_cb(self, _):
         #TODO: create function in dl_handler.py to handle downloading all of the files
         print("args:" + str(args))
+        download_jump(args)
 
     """called when the cancel button is pressed"""
     def cancel_clicked_cb(self, _):
@@ -44,4 +48,6 @@ class Handlers:
 builder.connect_signals(Handlers())
 window = builder.get_object("main_window")
 window.show_all()
+def download_jump(args):
+    check_and_download(window, args)
 Gtk.main()
