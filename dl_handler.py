@@ -5,7 +5,7 @@ from pytube import Playlist
 import ffmpeg
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
-def check_and_download(window, link, folder, filetype):
+def check_and_download(window, link, folder, filetype, add_trackno):
     if link is None or folder is None or filetype is None:
         error_message(window, "Required fields are missing!!!!!")
         return
@@ -14,10 +14,10 @@ def check_and_download(window, link, folder, filetype):
         play_folder = folder + "/" + play.title
         trackno = 1
         for vid in play.video_urls:
-            dl_audio(window, vid, filetype, play_folder, play.title, trackno, play.length)
+            dl_audio(window, vid, filetype, play_folder, play.title, trackno, play.length, add_trackno)
             trackno = trackno + 1
     elif "watch" in link:
-        dl_audio(window, link, filetype, folder)
+        dl_audio(window, link, filetype, folder, append_track_no=add_trackno)
     else:
         error_message(window, "Couldn't parse link!")
 
@@ -46,7 +46,11 @@ def dl_audio(window, link, file_type, folder, album = "", track_no = 0, track_to
             return
         stream = vid.streams.filter(only_audio=True, adaptive=True).get_audio_only()
         path_to_vid = stream.download(output_path=folder)
-        path_to_audio = path_to_vid[:-4] + file_type
+        title = path_to_vid[len(folder) + 1:-4]
+        if append_track_no == True:
+            path_to_audio = f'{path_to_vid[:-(len(title) + 4)]}{track_no:02}_{title}{file_type}'
+        else:
+            path_to_audio = path_to_vid[:-4] + file_type
         ffmpeg.input(path_to_vid).output(path_to_audio).run()
         if file_type == ".mp3":
                 system('eyeD3 -a "' + vid.author.replace(" - Topic", "") + 
@@ -56,5 +60,6 @@ def dl_audio(window, link, file_type, folder, album = "", track_no = 0, track_to
                        ' -N ' + str(track_total) + 
                        ' "' + path_to_audio + '"')
         system('rm "' + path_to_vid + '"')
+        
 
 

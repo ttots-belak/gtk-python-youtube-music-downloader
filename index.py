@@ -8,6 +8,7 @@ builder.add_from_file("wow.glade")
 
 class Handlers:
     filetype = None
+    add_trackno = False
     link = None
     folder = None
     """called when the x button is pressed"""
@@ -18,6 +19,9 @@ class Handlers:
     def link_activate_cb(self, text):
         self.link = text.get_text()
 
+
+    def link_paste_cb(self, text):
+        self.link = text.get_text()
     """called when a folder is set in the dialogue"""
     def dir_choice_file_set_cb(self, file):
         self.folder = file.get_filename()
@@ -25,11 +29,14 @@ class Handlers:
     def filetype_choice_changed_cb(self, choice):
         choice_id = choice.get_active_id()
         self.filetype = ".mp3" if choice_id == "0" else ".wav"
+    
+    def add_trackno_toggled_cb(self, tick):
+        self.add_trackno = not self.add_trackno 
     """called when the download button is pressed"""
     def download_clicked_cb(self, _):
         #TODO: create function in dl_handler.py to handle downloading all of the files
-        print(f"link: {self.link}\nfolder: {self.folder}\nfiletype: {self.filetype}")
-        download_jump(self.link, self.folder, self.filetype)
+        print(f"link: {self.link}\nfolder: {self.folder}\nfiletype: {self.filetype}\nadd_trackno: {self.add_trackno}")
+        download_jump(self.link, self.folder, self.filetype, self.add_trackno)
 
     """called when the cancel button is pressed"""
     def cancel_clicked_cb(self, _):
@@ -38,6 +45,6 @@ class Handlers:
 builder.connect_signals(Handlers())
 window = builder.get_object("main_window")
 window.show_all()
-def download_jump(link, folder, filetype):
-    check_and_download(window, link, folder, filetype)
+def download_jump(link, folder, filetype, add_trackno):
+    check_and_download(window, link, folder, filetype, add_trackno)
 Gtk.main()

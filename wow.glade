@@ -44,6 +44,7 @@
                     <property name="can-focus">True</property>
                     <property name="placeholder-text" translatable="yes">link</property>
                     <signal name="activate" handler="link_activate_cb" swapped="no"/>
+                    <signal name="paste-clipboard" handler="link_paste_cb" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -130,6 +131,23 @@
                     <property name="position">1</property>
                   </packing>
                 </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="add_trackno">
+                <property name="label" translatable="yes">add track number to filename</property>
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">False</property>
+                <property name="halign">center</property>
+                <property name="hexpand">True</property>
+                <property name="draw-indicator">True</property>
+                <signal name="toggled" handler="add_trackno_toggled_cb" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
