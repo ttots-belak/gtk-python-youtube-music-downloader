@@ -12,7 +12,7 @@ def check_and_download(window, link, folder, filetype):
     if "playlist" in link:
         play = Playlist(link) 
         play_folder = folder + "/" + play.title
-        trackno = 0
+        trackno = 1
         for vid in play.video_urls:
             dl_audio(window, vid, filetype, play_folder, play.title, trackno, play.length)
             trackno = trackno + 1
