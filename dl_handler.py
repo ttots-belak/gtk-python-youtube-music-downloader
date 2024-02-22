@@ -52,8 +52,8 @@ def dl_audio(window, link, file_type, folder, album = "", track_no = 0, track_to
                 system('eyeD3 -a "' + vid.author.replace(" - Topic", "") + 
                        '" -A "' + album.replace("Album - ", "") + 
                        '" -t "' + vid.title + 
-                       '" -d ' + str(track_no) + 
-                       ' -D ' + str(track_total) + 
+                       '" -n ' + str(track_no) + 
+                       ' -N ' + str(track_total) + 
                        ' "' + path_to_audio + '"')
         system('rm "' + path_to_vid + '"')
 
