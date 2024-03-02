@@ -34,7 +34,6 @@ class Handlers:
         self.add_trackno = not self.add_trackno 
     """called when the download button is pressed"""
     def download_clicked_cb(self, _):
-        #TODO: create function in dl_handler.py to handle downloading all of the files
         print(f"link: {self.link}\nfolder: {self.folder}\nfiletype: {self.filetype}\nadd_trackno: {self.add_trackno}")
         download_jump(self.link, self.folder, self.filetype, self.add_trackno)
 
